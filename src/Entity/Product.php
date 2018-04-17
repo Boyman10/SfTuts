@@ -2,79 +2,56 @@
 
 namespace App\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
+
 /**
- * Created by bill.
- * Entity class for testing purpose
- * User: John
- * Date: 4/17/2018
- * Time: 9:52 PM
+ * @ORM\Entity(repositoryClass="App\Repository\ProductRepository")
  */
 class Product
 {
+    /**
+     * @ORM\Id()
+     * @ORM\GeneratedValue()
+     * @ORM\Column(type="integer")
+     */
     private $id;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
     private $name;
-    private $description;
 
     /**
-     * Product constructor.
-     * @param $id
-     * @param $name
-     * @param $description
+     * @ORM\Column(type="string", length=255)
      */
-    public function __construct($id, $name, $description)
-    {
-        $this->id = $id;
-        $this->name = $name;
-        $this->description = $description;
-    }
+    private $content;
 
-    /**
-     * @return mixed
-     */
     public function getId()
     {
         return $this->id;
     }
 
-    /**
-     * @param mixed $id
-     */
-    public function setId($id): void
-    {
-        $this->id = $id;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getName()
+    public function getName(): ?string
     {
         return $this->name;
     }
 
-    /**
-     * @param mixed $name
-     */
-    public function setName($name): void
+    public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getDescription()
+    public function getContent(): ?string
     {
-        return $this->description;
+        return $this->content;
     }
 
-    /**
-     * @param mixed $description
-     */
-    public function setDescription($description): void
+    public function setContent(string $content): self
     {
-        $this->description = $description;
+        $this->content = $content;
+
+        return $this;
     }
-
-
 }
