@@ -5,6 +5,7 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
+use Psr\Log\LoggerInterface;
 
 /**
  * Created by Bill.
@@ -25,6 +26,17 @@ class LuckyController extends Controller
 
         return $this->render('lucky/number.html.twig', array(
             'number' => $number,
+        ));
+    }
+
+    /**
+     * @Route("/lucky/logger")
+     */
+    public function list(LoggerInterface $logger)
+    {
+        $logger->info('Look! I just used a logging service');
+        return $this->render('lucky/number.html.twig', array(
+            'number' => 0,
         ));
     }
 }
