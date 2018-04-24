@@ -56,9 +56,14 @@ class ProductController extends Controller
 
     /**
      * @Route("/{id}/edit", name="product_edit", methods="GET|POST")
+     * @see http://symfony.com/doc/current/components/http_foundation/sessions.html
      */
-    public function edit(Request $request, Product $product): Response
+    public function edit(Request $request, Product $product,SessionInterface $session ): Response
     {
+        if (!isset($session->get('user').isStarted()))
+            // redirects to the "homepage" route
+            return $this->redirectToRoute('homepage');
+
         $form = $this->createForm(ProductType::class, $product);
         $form->handleRequest($request);
 
@@ -72,6 +77,7 @@ class ProductController extends Controller
             'product' => $product,
             'form' => $form->createView(),
         ]);
+
     }
 
     /**
